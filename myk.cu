@@ -26,7 +26,26 @@ void mykern(int n, float a, float *x, float *y)
 
 int main(void)
 {
-  cout << "LES CUDA Kernel Test\n" << std::flush;
+  cout << "LES CUDA Kernel Test 2\n" << std::flush;
+
+  // DEVICE PROPERTIES
+  int nDevices;
+
+  cudaGetDeviceCount(&nDevices);
+  for (int i = 0; i < nDevices; i++) {
+    cudaDeviceProp prop;
+    cudaGetDeviceProperties(&prop, i);
+    printf("Device Number: %d\n", i);
+    printf("  Device name: %s\n", prop.name);
+    float memRate = static_cast< float >(prop.memoryClockRate);
+    memRate = memRate / 1000000.0;
+    printf("  Memory Clock Rate (GHz): %f\n", memRate);
+    printf("  Memory Bus Width (bits): %d\n", prop.memoryBusWidth);
+    printf("  Peak Memory Bandwidth (GB/s): %f\n\n",
+           2.0*prop.memoryClockRate*(prop.memoryBusWidth/8)/1.0e6);
+  }
+
+
   int N = 100000000;
 
   float my_const = 0.5;
