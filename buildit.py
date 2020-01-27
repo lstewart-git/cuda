@@ -21,18 +21,17 @@ class ExeBuilder:
                         '-L/usr/local/magma/lib -lmagma '\
                         '-L/usr/local/cuda/lib64 -lcublas -lcusparse -lcudart -cxxlib'
 
-        self.libraries = self.libraries + ' ' + self.cu_libraries
+        self.libraries =  self.cu_libraries
 
 
     def run_me(self):
         file_name = 'myk.cu'
         compiler_flags = self.cu_compiler_flags
-        os.system(self.cu_compiler + ' -c ' + compiler_flags + ' ' + file_name)
+        os.system(self.cu_compiler + ' -o myk ' + compiler_flags + ' ' + file_name)
 
 # MAIN DRIVER STARTS HERE    
 if __name__ == "__main__":
 
     run_obj = ExeBuilder()
     run_obj.run_me()
-
 
